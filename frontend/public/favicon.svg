@@ -1,0 +1,15 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C00"></stop>
+      <stop offset="100%" stop-color="#FF0000"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect x="10" y="10" width="80" height="80" rx="20" ry="20" fill="url(#grad)"></rect>
+
+  <!-- White play icon -->
+  <polygon points="40,30 70,50 40,70" fill="#FFFFFF"></polygon>
+</svg>
