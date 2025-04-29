@@ -5,15 +5,27 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 //CORS permissions: perimssion to all origins to access the API
-app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://vidtube-front.vercel.app"  
-  ],
-  credentials: true,
-  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
-  allowedHeaders: ["Content-Type","Authorization"]
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // allow requests with no origin (e.g. mobile apps, curl)
+      if (!origin) return callback(null, true);
+
+      // if origin ends with ".vercel.app" OR starts with "http://localhost:"
+      const isVercelPreview = /\.vercel\.app$/.test(origin);
+      const isLocalhostDev = origin.startsWith("http://localhost:");
+      if (isVercelPreview || isLocalhostDev) {
+        return callback(null, true);
+      }
+
+      // otherwise, block
+      callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,                     // allow cookies
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 //Common middlewares
 app.use(express.json({ limit: "16kb" }));
