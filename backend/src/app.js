@@ -5,12 +5,15 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 //CORS permissions: perimssion to all origins to access the API
-app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "https://vidtube-front.vercel.app"  
+  ],
+  credentials: true,
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  allowedHeaders: ["Content-Type","Authorization"]
+}));
 
 //Common middlewares
 app.use(express.json({ limit: "16kb" }));
